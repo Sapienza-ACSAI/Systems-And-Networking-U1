@@ -9,6 +9,7 @@
 \usepackage{titlesec}
 \usepackage{enumerate}
 \usepackage{marginnote}
+\usepackage{fancyvrb}
 
 \reversemarginpar
 
@@ -46,6 +47,12 @@
   \fancyfoot[CE,CO]{\leftmark}
   \fancyfoot[LE,RO]{\thepage \ of \pageref*{LastPage}}
 }
+
+%% baskerville
+
+\usepackage[T1]{fontenc}
+\usepackage{kpfonts,baskervald}
+\usepackage{microtype}
 
 %%%
 %
@@ -235,7 +242,10 @@
 
 \tableofcontents
 
-\chapter{Introduction To Operating Systems - Lecture 1}
+
+\VerbatimFootnotes
+
+\chapter{Introduction To Operating Systems --- Lecture 1}
 
 \chapterquote{Computers are like Old Testament Gods: Lots of rules and no mercy.}{Joseph Campbell}{21 Jun 1988}
 
@@ -247,7 +257,7 @@
 
 	Most of the material is going to be available on Moodle, the suggested book is
 	\begin{quote}
-		Modern Operating Systems - Tanenbaum et al.
+		Modern Operating Systems --- Tanenbaum et al.
 	\end{quote}
 
 
@@ -299,8 +309,7 @@
 	and some I/O modules allowing the interfacing of the machine with the outside world
 
 
-	\section{Operating Systems}
-	\label{sec:OS}
+	\section{Operating Systems}\label{sec:OS}
 	\subsection{What is an OS}
 	There is no unified definition for an OS, but a good enough one is:
 
@@ -321,8 +330,7 @@
 	with the knowledge that an OS must, in general, at least provide the
 	properties we mentioned above
 
-	\paragraph{Kernel and System Programs} 
-	\label{par:kernel}
+	\paragraph{Kernel and System Programs}\label{par:kernel}
 	Kernel and System programs are two distinct sections of an OS,
 	the kernel is an "always online" version of the Operating System, seen as the
 	very core of the OS, all that is left outside of the kernel makes up the remaining
@@ -351,17 +359,17 @@
 			on the machine, which were absolutely lacking of an OS, that is
 			because the users of each computer were often the very academics who devised them
 
-		\item 1955-1965, Mainframes: As time went one the computers expanded to allow
+		\item 1955--1965, Mainframes: As time went one the computers expanded to allow
 			the existence of a single mainframe sharing the resources with multiple terminals
 			executing each job in sequence, the programs were written on Punched cards and therefore
 			the OS was born, as a necessity to load these programs.
 
-		\item 1955-1965 Batch Systems: another family of systems was Batch Systems, which
+		\item 1955--1965 Batch Systems: another family of systems was Batch Systems, which
 			utilized a primitive OS who used a pre-set scheduling to run a set of jobs in a single batch,
 			this increased the throughput of the machine, while still requiring a substantial amount of
 			manual intervention to make it work, since the scheduling was still not in the hands of the OS.
 
-		\item 1955-1965 Multiprogramming Systems: a further step forward, the OS was now
+		\item 1955--1965 Multiprogramming Systems: a further step forward, the OS was now
 			responsible for a multitude of things, jobs scheduling, memory and I/O management, the automation
 			of these processes allowed the execution of multiple of them in parallel, thanks to context
 			switching, this skyrocketed the efficiency of hardware, the only weak point being that
@@ -418,7 +426,7 @@
 	will come at the cost of Performance and Memory size of the OS; a greater number of layers of abstraction require an
 	increased performance to be upheld, etc, etc\dots
 
-\chapter{Computer Architectures - Lesson 2}
+\chapter{Computer Architectures --- Lesson 2}
 
 \begin{center}
         
@@ -631,7 +639,7 @@
 
 
 	
-	\chapter{OS Design Goals - Lecture 3}
+	\chapter{OS Design Goals --- Lecture 3}
 			\section{System Calls Handling}
 				every time that a system call is launched, it goes through a specific 
 				pipeline that allows it to be performed:
@@ -798,7 +806,7 @@
 					\item The old stack frame base pointer is restored 
 				\end{enumerate}
 
-\chapter{Processes (1 of 2) - Lecture 4}
+\chapter{Processes (1 of 2) --- Lecture 4}
 	\section{Process Management}
 		\subsection{Process Execution States}
 		\label{sec:procStates}
@@ -807,7 +815,7 @@
 				\begin{enumerate}
 					\item New: The OS has just set up the process.
 					\item Ready: the process is ready to be executed, it is waiting to be scheduled on the CPU.
-					\item Running: the process is actually executing instructions on the CPU .
+					\item Running: the process is actually executing instructions on the CPU.
 					\item Waiting: the process is waiting for a resource to be available or an event to occur (I/O Interrupt, Disk Access, Timer, Etc\dots).
 					\item Terminated: the process is either done working or terminated by the OS.
 				\end{enumerate}
@@ -838,8 +846,7 @@
 					\item the process's current execution state
 				\end{enumerate}
 
-				\paragraph{Process Control Block}
-				\label{par:PCB}
+				\paragraph{Process Control Block}\label{par:PCB}
 				The main data structure used by the OS to keep track of a process is 
 				the PCB, containing the process state, the PID or process ID,
 				all the registers necessary to keep track of the state of a program, 
@@ -850,8 +857,7 @@
 				since it is a protected data structure.
 
 		\subsection{A more In-Depth view of Processes}
-			\paragraph{Process Creation}
-			\label{par:p_creation}
+			\paragraph{Process Creation}\label{par:p_creation}
 				Processes may create other processes through specific system calls, when this happens 
 				the creator is called parent and the new process is called child, the parent process
 				shares its resources and privileges to its children
@@ -863,9 +869,9 @@
 			\paragraph{UNIX process Creation} On a typical UNIX system the process scheduler is named \emph{sched}
 			and is given PID 0, the first thing it does at system start-up time is to launch \emph{init}, which gives that process PID 1.
 
-			init then launches al system daemons and user logins, and becomes the ultimate parent of all other processes .
+			init then launches al system daemons and user logins, and becomes the ultimate parent of all other processes.
 
-			to create a process we can invoke the fork() system call. 
+			to create a process we can invoke the \code{fork()} system call. 
 
 			\paragraph{Parent/Child Address Space} there are two possibilities for the address space of a children process relative to 
 			the parent:
@@ -916,7 +922,7 @@ for(const &n_processes : processes)
 }
 				\end{lstlisting}
 
-\chapter{Processes (2 of 2) - Lecture 5}
+\chapter{Processes (2 of 2) --- Lecture 5}
 	\section{Process Termination}
 			\label{sec:p_termination}
 			\paragraph{Self Termination}
@@ -1039,7 +1045,7 @@ for(const &n_processes : processes)
 					\item Information sharing: cooperation allows the sharing of memory resources 
 					\item Computation speedup: by breaking the task into subtasks some problems can be solved faster
 					\item Modularity: modern architectures love to split up a system into many cooperating modules that 
-					manage its different aspects\footnote{this is very common in GUI applications that employ an MVC model}
+					manage its different aspects\footnote{This is very common in GUI applications that employ an MVC model.}
 					\item Convenience: it allows for a better illusion of parallelism, by allowing execution of a single program 
 					in multiple windows which split system resources. 
  				\end{itemize}
@@ -1097,7 +1103,7 @@ for(const &n_processes : processes)
 				performing CPU computations or it is waiting for an I/O interrupt.
 
 				Interestingly, bursts seems to be statistically distributed in a skewed 
-				manner, where the majority of bursts last a very short time\footnote{Around 8ms},
+				manner, where the majority of bursts last a very short time\footnote{Around 8ms.},
 				while only a smaller part of them takes a very significant time.
 
 				This in turn means that a majority of the waits is well-handled by modern solutions 
@@ -1140,13 +1146,13 @@ for(const &n_processes : processes)
 				the possible solutions are:
 				\begin{itemize}
 					\item Make the process wait until the systems calls are either completed or blocked before  
-					allowing pre-emption\footnote{This is problematic since it casts away the illusion of parallelism}
+					allowing pre-emption\footnote{This is problematic since it casts away the illusion of parallelism.}
 					\item Disabling interrupts before entering critical code and re enabling 
 					them immediately afterwards. \footnote{This must be implemented carefully
-					lest it results in a \href{https://en.wikipedia.org/wiki/Halt_and_Catch_Fire_(computing)}{Halt and Catch Fire} situation}
+					lest it results in a \href{https://en.wikipedia.org/wiki/Halt_and_Catch_Fire_(computing)}{Halt and Catch Fire} situation.}
 				\end{itemize}
 				
-\chapter{Scheduling Algorithms - Lecture 6}
+\chapter{Scheduling Algorithms --- Lecture 6}
 		\section{The Dispatcher}
 			The dispatcher is the software module that gives control of the CPU to the 
 			process that was selected by the scheduler, its functions include:
@@ -1161,7 +1167,7 @@ for(const &n_processes : processes)
 		\section{Dispatcher Design Choices}
 			\subsection{Useful KPI for performance measurement}
 				\label{ssec:KPI}
-				the following KPI\footnote{Key Performance Indicator} are used to measure Dispatcher/Scheduler
+				the following KPI\footnote{Key Performance Indicator.} are used to measure Dispatcher/Scheduler
 				performance
 				
 				\begin{enumerate}
@@ -1170,7 +1176,7 @@ for(const &n_processes : processes)
 					\item Burst Time: time required for CPU execution  
 					\item Turnaround Time: difference between completion and arrival
 					\footnote{That takes into account every state that the process
-					is in, from first entering the ready queue to completion}
+					is in, from first entering the ready queue to completion.}
 					\item Waiting Time: difference between Turnaround and Burst Time\footnote{Takes into account
 					the total time spent in the waiting queue, waiting for outside events.}
 				\end{enumerate}
@@ -1361,7 +1367,7 @@ for(const &n_processes : processes)
 		This spawns an array of different scheduling algorithms that make use of a
 		priority system to define different approaches with which to solve the scheduling 
 		problem\footnote{\hyperref[ssec:SJF]{SJF} is one of such algorithms, even if it is 
-		possibly one of the most primitive implementations of such a system}.
+		possibly one of the most primitive implementations of such a system.}.
 				
 		\subsection{Priority Scheduling Characteristics}
 		In a priority scheduling algorithm, priorities can be assigned either 
@@ -1375,7 +1381,7 @@ for(const &n_processes : processes)
 		\end{itemize}
 
 		Priority scheduling can also be implemented in a pre-emptive or non-pre-emptive
-		\footnote{see: \hyperref[par:preem]{Pre-emptiveness}} Fashion.
+		\footnote{See: \hyperref[par:preem]{Pre-emptiveness}.} Fashion.
 
 		\paragraph{Common Priority Scheduling Issues}
 		When jobs are executed according to a set of priority rules, a number of problems
@@ -1393,8 +1399,8 @@ for(const &n_processes : processes)
 	
 	\subsection{MLQ (Multi-Level Queue)}
 	\label{ssec:MLQ}
-	We explore the idea of defining different categories\footnote{for example: CPU-Bound
-	and I/O Bound jobs can be separated into different categories} of jobs we can then implement
+	We explore the idea of defining different categories\footnote{For example: CPU-Bound
+	and I/O Bound jobs can be separated into different categories.} of jobs we can then implement
 	a queue for each category and an algorithm for each queue
 
 	\paragraph{Meta-Scheduling} 
@@ -1406,8 +1412,8 @@ for(const &n_processes : processes)
 			\item Strict Priority: No job in a low priority queues runs until all high
 			priority ones are empty
 			\item Round Robin: Jobs are executed in a \hyperref[ssec:RR]{Round Robin} fashion,
-			with a specific time slice\footnote{this allows us to still provide different
-			priorities in a more fair manner} for each queue.
+			with a specific time slice\footnote{This allows us to still provide different
+			priorities in a more fair manner.} for each queue.
 		\end{itemize}
 
 	\paragraph{MLQ Hierarchy}
@@ -1432,11 +1438,11 @@ for(const &n_processes : processes)
 		\subsubsection{MLFQ Implementation}
 		Jobs first start in the highest priority queue, if its time quantum expires,
 		it gets dropped by one priority level\footnote{This indicates that this job
-		is CPU-Bound}.
+		is CPU-Bound.}.
 
 		If the time slice does not expire, but a context switch still occurs due to an 
 		interrupt, the priority is increased by one level\footnote{This indicates that 
-		the job is I/O-Bound}.
+		the job is I/O-Bound.}.
 
 		Therefore this system quickly separates I/O and CPU bound jobs, allowing the 
 		\hyperref[par:MLQ_h]{hierarchy} to impose itself naturally.
@@ -1452,7 +1458,7 @@ for(const &n_processes : processes)
 			\item The default queue(s) for a new process.
 		\end{itemize}
 
-\chapter{Scheduling and Threads - Lecture 7-8}
+\chapter{Scheduling and Threads --- Lecture 7--8}
 	\section{A Last Look at Scheduling}
 		\subsection{MLFQ: A more in depth view}
 
@@ -1466,7 +1472,7 @@ for(const &n_processes : processes)
 			\paragraph{MLFQ Flexibility}
 			MLFQ prevents this by promoting CPU bound jobs to a higher level, so they can be 
 			treated in a specific queue\footnote{As stated before, there's a high probability
-			the high priority queue is running \hyperref[ssec:SJF]{SJF}}, separating them from the 
+			the high priority queue is running \hyperref[ssec:SJF]{SJF}.}, separating them from the 
 			problematic I/O bound jobs, that get instead demoted to other queues that can handle 
 			them more accordingly.
 
@@ -1592,7 +1598,7 @@ for(const &n_processes : processes)
 			must perform CPU-Bound tasks that are different in nature, and that therefore
 			can execute in parallel, effectively allowing us to perform computation in one 
 			task when the other could be blocked\footnote{This provided that both tasks are
-			not utilizing a shared resource}.
+			not utilizing a shared resource.}.
 
 			This gifts us with an increase in performance that is often measured in orders 
 			of magnitude, that is, if the task is \emph{easily parallelizable}, meaning that 
@@ -1676,7 +1682,7 @@ for(const &n_processes : processes)
 				}{
 					Embarrassingly Parallel
 			} problems, for example a GPU computing the next frame on the monitor splits
-			the frame buffer into equally sized chunks of a certain size (e.g 16x16)
+			the frame buffer into equally sized chunks of a certain size (e.g $16\times16$)
 			and makes use of its many cores (usually in the hundreds) to draw each pixel 
 			independently from the other. 
 
@@ -1735,7 +1741,7 @@ for(const &n_processes : processes)
 
 	\paragraph{User Kernels}
 	Threads living in User Space are managed entirely by the run-time system provided 
-	by the user level \emph{thread library} \footnote{such as the \texttt{<thread>} library in C++},
+	by the user level \emph{thread library} \footnote{Such as the \texttt{<thread>} library in C++.},
 	the operating system has no knowledge of the threads evene existing and therefore manages 
 	user-level threads as if they were a single-threaded \emph{process}.
 
@@ -1791,7 +1797,7 @@ The mapping of user threads to kernel threads can vary depending on implementati
 	the scheduling policies that can be implemented.
 
 		
-\chapter{Synchronization - Lecture 9}
+\chapter{Synchronization --- Lecture 9}
 	\section{Process/Thread Synchronization}
 	In the last lectures we introduced the concept of thread cooperation as a mean 
 	to boost execution performance, however, we also said that cooperation must be 
@@ -1911,7 +1917,7 @@ The mapping of user threads to kernel threads can vary depending on implementati
 			Threads are said to be symmetric if, for a single task, the set of all threads 
 			performing computation on that task possesses the same original code.
 		
-\chapter{Advanced Synchronization - Lecture 10}
+\chapter{Advanced Synchronization --- Lecture 10}
 	\section{Advanced Synchronization Structures}
 	\label{sec:sync_struct}
 	In the previous lecture we explored the functionalities, the advantages and the 
@@ -2035,7 +2041,7 @@ The mapping of user threads to kernel threads can vary depending on implementati
 	
 
 
-\chapter{Deadlock - Lecture 11}
+\chapter{Deadlock --- Lecture 11}
 
 \chapterquote{When two trains approach each other at a crossing, 
 both shall come to a full stop and neither 
@@ -2211,7 +2217,7 @@ public:
 			If the resulting graph appears to be cyclic, then the represented thread structure is in a deadlock state, and we can then employ some solutions to 
 			solve this problem, which we are going to explore in the next lecture.
 
-\chapter{Deadlock Solutions - Lecture 12}
+\chapter{Deadlock Solutions --- Lecture 12}
 \section{Solving Deadlock}
 \subsection{Deadlock Detection}
 Last lecture we saw how we can represent any multithreaded program with a 
@@ -2244,8 +2250,8 @@ solution is not pursued at all by modern OSs, leaving the burden of a solution o
 \subsection{Deadlock Prevention}
 Another solution that we mentioned last lecture, but that we did not explore in any depth, is that 
 of preventing deadlock altogether, by preventing at least one of the necessary \hyperref[ssec:deadlock_conditions]{four conditions}
-from coming true: \footnote{Once again it is better to see these four points as a list of steps that one can take 
-to prevent deadlock from happening before it's too late, than a series of concurrent conditions that must verify.}
+from coming true\footnote{Once again it is better to see these four points as a list of steps that one can take 
+to prevent deadlock from happening before it's too late, than a series of concurrent conditions that must verify.}:
 
 \begin{enumerate}
 	\item Mutual Exclusion: Make all resources sharable,
@@ -2304,7 +2310,7 @@ deciding in response what our policy should be, thus ensuring the impossibility 
 
 			solve this problem.
 		
-\chapter{Main Memory - Lecture 13}
+\chapter{Main Memory --- Lecture 13}
 	\section{Memory Management}
 			So far in our classes, we have seen how the Operating System manages \hyperref[ssec:proc]{processes} and \hyperref[sec:threads]{threads}, how it schedules them 
 			and different sets of problems and respective solutions that arise with these kinds of architectures, we now 
@@ -2323,15 +2329,14 @@ deciding in response what our policy should be, thus ensuring the impossibility 
 			\begin{itemize}
 				\item Allocate memory resources among competing processes in a way that maximizes memory utilization and system throughput,
 				\item Guarantee process isolation, for Virtual Addresses and Memory Safety,
-				\item Provide a convenient abstraction to the programmer, keeping up an illusion of an unlimited amount of memory. \footnote{This is similar 
-				to the illusion of a truly parallel system that we wish to uphold when we design a process \hyperref[sec:scheduling]{scheduling}.}
+				\item Provide a convenient abstraction to the programmer, keeping up an illusion of an unlimited amount of memory.\footnote{This is similar to the illusion of a truly parallel system that we wish to uphold when we design a process \hyperref[sec:scheduling]{scheduling}.}
 			\end{itemize}
 		
 		\subsection{From Source Code to Executables}
 
 		A typical, high-level programming language refers to instructions and data with symbolic names, called \emph{Tokens},
 		these are usually idioms in a humanly understandable language such as English that intuitively represent their behaviour.\footnote{E.g: the function
-		\emph{count()} counts members of a list in python}
+		\emph{count()} counts members of a list in python.}
 
 		\marginnote{Translation of source code is a responsibility of either a Compiler or an Interpreter, depending on the nature of the language,
 		these then go through an Assembler and a Linker, resulting into machine language}
@@ -2422,7 +2427,7 @@ deciding in response what our policy should be, thus ensuring the impossibility 
 
 		\paragraph{Static Binding Implementation}
 		In such a case, we have the following organization: the Operating System is given a fixed part of physical memory to perform 
-		its essential functions,\footnote{This is usually located in the highest memory addresses, for example this is the case in MS-DOS}
+		its essential functions,\footnote{This is usually located in the highest memory addresses, for example this is the case in MS-DOS.}
 		Processes run one at a time and are loaded each in a contiguous segment of memory, this allows compile time address binding 
 		since it is a very deterministic and simplistic architecture.
 
@@ -2479,7 +2484,7 @@ deciding in response what our policy should be, thus ensuring the impossibility 
 		\paragraph{Implementing Memory Relocation}
 		Whenever a program references an address, the CPU must check if it is within the allowed bound for that process:
 		\[
-			addr \in [base, \; base + limit)	
+			addr \in [base, \; base + limit)
 		\]
 
 		if this does not hold true, we get an error known as \emph{Segfault}, or Segmentation Fault.\\
@@ -2505,7 +2510,7 @@ deciding in response what our policy should be, thus ensuring the impossibility 
 	architectures require very little OS or Hardware support, but provide no security guarantees and very poor performance from a 
 	multiprogramming or User Experience point of view, and therefore that more complex solutions are more desirable in a modern environment.
 
-\chapter{Fragmentation - Lecture 14}
+\chapter{Fragmentation --- Lecture 14}
 
 In the previous lecture, all of the memory management solutions that we 
 explored were based on a single, powerful assumption: that memory was 
@@ -2537,10 +2542,10 @@ subsequently, these slots can be re-used by new processes
 
 	This minimizes the amount of size of the remaining free memory
 	supposedly reducing fragmentation
-	\footnote{
-		we say supposedly because after some time, one ends up with 
+	\footnote{%
+		We say supposedly because after some time, one ends up with 
 		many tiny unallocated holes that we cannot possibly allocate
-		a process to, actually leading to higher fragmentation
+		a process to, actually leading to higher fragmentation.
 	}
 
 \paragraph{Worst-Fit}
@@ -2596,12 +2601,12 @@ subsequently, these slots can be re-used by new processes
 	\paragraph{Swapping Performance}
 	Swapping is a very costly operation, since it requires access to a hard drive\footnote{
 		Even if the mass storage device we would be talking about was an SSD, swapping would be 
-		faster but still orders of magnitude slower than simply accessing RAM
+		faster but still orders of magnitude slower than simply accessing RAM.
 	}
 	and therefore must not be performed too leniently, in fact this poses a significant 
 	enough disadvantage to make swapping obsolete in modern OSs.
 
-\chapter{Virtual Memory (1 of 2) - Lecture 15}
+\chapter{Virtual Memory (1 of 2) --- Lecture 15}
 \section{Paging}
 
 A solution to all the problems presented with the previous 
@@ -2627,7 +2632,7 @@ can be accessed easily through the use of bit masking.\\
 Memory Addresses are of course represented through binary numbers,
 this means that if the Page/Frame is a power of two, it will be 
 represented in a fixed amount of bits in the full address\footnote{Say for example, in a
-32 bit address, the first 10 bits are the page number and the next 22 are the offset}, this 
+32 bit address, the first 10 bits are the page number and the next 22 are the offset.}, this 
 makes it possible to separate the page from the offset by the aforementioned 
 bit masking method and map its respective frame.
 
@@ -2643,10 +2648,10 @@ to go through the page table to obtain the actual physical address with
 which to address memory.\\
 
 For this reason the Page Table is implemented in an hardware component, which 
-also implements a TLB\footnote{Transition Look-Aside Buffer}
+also implements a TLB\footnote{Transition Look-Aside Buffer.}
 a form of caching that speeds up page loading by caching recently used pages, 
 avoiding access to main memory.\footnote{Whenever a process requests a page that is not currently cached in the TLB, we have 
-a page fault}
+a page fault.}
 
 \paragraph{TLB and Multiprogramming}
 The TLB is shared across all processes since, being a hardware piece, it is 
@@ -2658,7 +2663,7 @@ approached in two ways:
 
 \begin{enumerate}
 	\item Basic: at every context switch the TLB is flushed and cleaned, this is very 
-	trivial to implement but leads to a "cold start" state on every context switch, since 
+	trivial to implement but leads to a `cold start' state on every context switch, since 
 	the TLB being emptied leads to a high number of misses until it's populated again
 	\item Advanced: at every context switch the TBL contents are cached in the PCB and restored 
 	on the next context switch, alternatively, a Process Context ID (PCID) is added to each entry,
@@ -2705,7 +2710,7 @@ A system that employs paging can make it very easy to share a block of memory, s
 removes the necessity of contiguity, sharing can be accomplished simply by duplicating a page 
 entry, having multiple processes's pages point to the same frame, this can be done 
 both for code and data.\footnote{This is a common occurrence in modern systems, such as in 
-Windows's DLL (Dynamically Linked Libraries)}\\
+Windows's DLL (Dynamically Linked Libraries).}\\
 
 This can only be accomplished if the code is \emph{reentrant}, meaning that:
 \begin{itemize}
@@ -2735,7 +2740,7 @@ It has it's set of drawbacks, namely:
 
 
 
-\chapter{Virtual Memory (2 of 2) - Lecture 16 to 18}
+\chapter{Virtual Memory (2 of 2) --- Lecture 16 to 18}
 
 \section{Segmentation}
 To most programmers, the notion of memory not existing 
@@ -2964,7 +2969,7 @@ Whenever we have a page fault, we need to load a page from disk to memory, if
 the physical memory has free frames available, there is no problem, we can just load 
 the page into a frame, if, however, our physical memory is full, we must swap out a frame
 to make room for the new page \footnote{The process of swapping a frame out of memory 
-is often called frame \emph{eviction}}.
+is often called frame \emph{eviction}.}.
 
 \paragraph{Replacement Algorithms}
 There are many different algorithms to implement frame evictions, such as:
@@ -2980,9 +2985,9 @@ There are many different algorithms to implement frame evictions, such as:
 
 A summary of their use-cases:
 \begin{itemize}
-	\item FIFO: Easy to implement but lead to too many page faults,
-	\item MIN: Optimal but practically impossible to implement,
-	\item LRU: Good approximation of MIN, implements the principle of 
+	\item FIFO --- Easy to implement but lead to too many page faults,
+	\item MIN --- Optimal but practically impossible to implement,
+	\item LRU --- Good approximation of MIN, implements the principle of 
 	Temporal locality, works poorly when locality doesn't hold.
 \end{itemize}
 
@@ -3021,7 +3026,7 @@ In all of our recent considerations, we have always taken for granted that
 our system is always running a single process at a time, however, with modern multicore 
 architectures, we need to consider the fact that multiple processes might run concurrently on the same 
 CPU, however, we know that the set of pages that are being worked on is very small\footnote{Precisely it follows the 
-90/10 rule}, this allows the system to load very few pages, increasing the degree of multiprogramming.\\
+90/10 rule.}, this allows the system to load very few pages, increasing the degree of multiprogramming.\\
 
 \paragraph{Thrashing}
 Whenever the degree of multiprogramming is too high, too many active working sets get 
@@ -3152,7 +3157,7 @@ A physical block of data is specified by the triple:
 blocks are usually numbered by starting from the outermost cylinder, which is zero-indexed \footnote{Do note that cylinder number coincides with track number.}
 
 \paragraph{Data Transfer}
-An Hard disk rotates at a constant angular speed\footnote{For example $7200rpm/120rps$}, due to the nature of angular speed in physics, you have that 
+An Hard disk rotates at a constant angular speed\footnote{For example $7200rpm/120rps$.}, due to the nature of angular speed in physics, you have that 
 outer tracks spin faster than inner tracks, leading to more sectors being accessed in the same amount of time due to larger tracks.
 
 Data transfer from disk to memory is a 3-step process:
@@ -3171,7 +3176,7 @@ We now analyze each step one by one:
 	slowest step in the process.
 	\item Rotational Delay:
 	The time required for the desired sector to rotate and come under the read-write head \footnote{Note that an HDD is constantly spinning, so depending on which 
-	sector we land on with respect to the one we are searching for, our delay can be anything between zero or a full revolution, averaging out at half a revolution}\
+	sector we land on with respect to the one we are searching for, our delay can be anything between zero or a full revolution, averaging out at half a revolution.}\
 	\item Transfer Time:
 	The time required to move data electronically from disk to memory, sometimes expressed as transfer rate (or bandwidth), in bytes per second
 \end{itemize}
@@ -3187,15 +3192,15 @@ The final delay necessary for the fetching of data is:
 
 \paragraph{HDD Risks}
 
-When an HDD is operating, disk heads "fly" over the surface on a very thin
+When an HDD is operating, disk heads `fly' over the surface on a very thin
 cushion of air, if the head accidentally contacts the disk a \emph{Head Crash}
 occurs, in order to prevent this destructive accidents, we take a precaution:
 
-Whenever the computer is turned off, disk heads are "parked", meaning that they
+Whenever the computer is turned off, disk heads are `parked', meaning that they
 are moved to a safe area that is off the disk where no data is stored.
 
 \paragraph{Disk Interfaces} %I am beginning to think that there are too many paragraphs and too few sections, tough luck!
-Hard Drives might be removable as floppy disks, some are even hot swappable\footnote{they can be removed while the computer is running}
+Hard Drives might be removable as floppy disks, some are even hot swappable\footnote{They can be removed while the computer is running.}
 
 Disks are connected to the computer via the I/O bus, usually through some common interface such as:
 \begin{multicols}{3}
@@ -3251,7 +3256,7 @@ A good set of OS optimizations can drastically reduce the overhead on disk acces
 and, since disk access is the main bottleneck in a computer, increase the performance
 of the system as a whole.
 
-\chapter{Mass Memory (2 of 2) - Lecture 20}
+\chapter{Mass Memory (2 of 2) --- Lecture 20}
 \section{Disk Scheduling}
 In our previous lectures we have seen how magnetic disks are ubiquitous 
 even in modern systems, due to their optimal cost/capacity ratio.
@@ -3280,7 +3285,7 @@ enqueued, we can \emph{sort} the order of this queue according to some arbitrary
 would minimize the latency of our accesses.\footnote{We do this with the aim of 
 minimizing seek time, not rotational delay, that is, we wish to position our head on 
 the right track/cylinder, letting the right sector rotate itself into position, we therefore 
-assume rotational delay to be \emph{negligible} with respect to seek time}
+assume rotational delay to be \emph{negligible} with respect to seek time.}
 
 \begin{center}
 	We can make use of \hyperref[sec:scheduling_alg]{Scheduling Algorithms} in order to 
@@ -3419,9 +3424,9 @@ tells the the disk how it is logically partition, it also indicates
 which partition is the active (or bootable) one.
 
 \paragraph{Bootable Partition}
-The Bootable partition\footnote{Usually C:\textbackslash in a windows system} 
+The Bootable partition\footnote{Usually \code{C:\textbackslash} in a windows system.} 
 is the one that contains the Operating System files such as the 
-Kernel and .DLLs that are responsible for the OS's functioning,
+Kernel and \code{.DLLs} that are responsible for the OS's functioning,
 
 When this partition is identified during the bootstrapping process, it's 
 loaded in main memory in order to transfer control to the Operating System, that 
@@ -3429,7 +3434,7 @@ loads all the important Kernel Data Structures and Services in order to correctl
 operate the device.
 
 \section{Solid State Drives (SSDs)}
-SSDs are a "recent"\footnote{in the grand scheme of things, they have only been popular 
+SSDs are a `recent' \footnote{In the grand scheme of things, they have only been popular 
 since the last decade, but I am sure someone reading this in the future will have a nice laugh 
 at how I am describing the 2050s's equivalent of a floppy disk as a recent technology.}
 develompent in the field of mass storage, they are a smaller but faster solution for 
@@ -3526,7 +3531,7 @@ that the probability of failure of one disk is $p$, under our assumption we can
 say that:
 
 \begin{align*}
-	& \mathcal{T} = \mathcal{X}_{1,t} + \mathcal{X}_{2, t} + ... + \mathcal{X}_{N,t}\\
+	& \mathcal{T} = \mathcal{X}_{1,t} + \mathcal{X}_{2, t} + \cdots + \mathcal{X}_{N,t}\\
 	& T \sim Binomial(N, p) \\
 	& \mathbb{E}(T) = Np 
 \end{align*}
@@ -3552,7 +3557,7 @@ is what we would see:
 		  xmax = 6000,
 		  xmin = 0,
 		  ymax = 5, 
-		  ymin = -1, 
+		  ymin = 0, 
 		  grid = both,
 		  axis lines = left,
 		  xlabel = {\(Number\ of\ Disks\)},
@@ -3629,7 +3634,7 @@ In short, to close this section of our lectures, we can summarize mass storage a
 \begin{itemize}
 	\item Disks are slow devices compared to CPU and 
 	Main Memory\footnote{
-		once again, see \href{https://en.wikipedia.org/wiki/Von_Neumann_architecture\#Von_Neumann_bottleneck}{Von Neumann Bottleneck}
+		Once again, see \href{https://en.wikipedia.org/wiki/Von_Neumann_architecture\#Von_Neumann_bottleneck}{Von Neumann Bottleneck}.
 		}
 	\item Due to them providing a bottleneck to the whole system, efficient management of these 
 	resources is crucial for any modern OS and Hardware Controllers.
@@ -3638,7 +3643,7 @@ In short, to close this section of our lectures, we can summarize mass storage a
 	\item Through redundancy one can cope with disk failures in critical application domains.
 \end{itemize}
 
-\chapter{File System: Theory - Lecture 21}
+\chapter{File System: Theory --- Lecture 21}
 \section{File System API}
 We now enter the last part of this course: we wish to take a step back from the low-level 
 point of view that we provided by exploring the implementation of mass storage both from an 
@@ -3655,7 +3660,7 @@ of abstractions to allow the user to interface with the hardware in a simpler ma
 	\item \hyperref[ssec:proc]{Processes} and \hyperref[sec:threads]{Threads} as a way to better utilize the CPU's resources,
 	\item \hyperref[sec:vmem]{Virtual Address Space} as a way to better utilize the Memory's resources,
 	\item Files as an interface with which to manipulate data which can be stored on Disk\footnote{For simplicity, in this section we 
-	are going to refer to any kind of mass storage as a "Disk"}.
+	are going to refer to any kind of mass storage as a `Disk'.}.
 \end{itemize}
 
 \paragraph{Device-Independent I/O}
@@ -3691,7 +3696,7 @@ implemented on the Hardware side and which of these are best implemented on the 
 		\item Speed (kind of): Through a set of carefully picked scheduling algorithms and software 
 		technologies we can fetch data in a satisfying amount of time, 
 		\item Size: Size of disks increases every year and is now commonly measured in Terabytes\footnote{
-			$\SI{1}{\tera\byte} = \SI{1}{\byte}\cdot10^{12}$
+			$\SI{1}{\tera\byte} = \SI{1}{\byte}\cdot10^{12}$.
 		}
 	\end{itemize}
 	\item Operating System:
@@ -3701,7 +3706,7 @@ implemented on the Hardware side and which of these are best implemented on the 
 		can performe which actions on a file.
 		\item Ease of Use: named Files, Directories and Search Tools are all instruments that simplify the 
 		User's job when manipulating and searching for files\footnote{When we talk about Ease of Use we do not 
-		refer to any GUI since we take GUI for granted in any modern OS}.
+		refer to any GUI since we take GUI for granted in any modern OS.}.
 	\end{itemize}
 \end{itemize}
 
@@ -3718,7 +3723,7 @@ A file is therefore a named collection of a set of related information that is s
 on secondary memory (A picture, a game, a PDF file with your notes on, etc \dots).
 
 Generally this information can either contain\footnote{or more accurately, \emph{represent}, 
-since at the end it's all 1's and 0's} data (.txt, .tex) or a program (.exe, .py)
+since at the end it's all 1's and 0's.} data (\code{.txt}, \code{.tex}) or a program (\code{.exe}, \code{.py})
 
 \paragraph{File Mapping}
 Files are mapped by the Operating System onto a Disk, since such devices are non-volatile and 
@@ -3940,7 +3945,7 @@ Any OS needs a method to quickly and intuitively fetch files that are located
 on disk, it usually uses a pair of identifiers: one for internal use and 
 one for the user itself.
 
-The Operating System prefers utilizing UIDs\footnote{Unique IDentifier} when 
+The Operating System prefers utilizing UIDs\footnote{Unique IDentifier.} when 
 addressing specific files, but it also keeps the file's name in the file descriptor
 in order to present a more human-friendly name to the user.
 
@@ -3995,13 +4000,13 @@ while needing a separate directory for system executables and \code{.DLL}s.
 The next logical step to extend an Operating System's directory structure is 
 increasing the number of levels through the use of a Tree-like data structure, 
 in this implementation\footnote{Which may be the one that the computer 
-you are using to read this is using right now} each user/process has a 
+you are using to read this is using right now.} each user/process has a 
 concept of \emph{current directory} from which all searches take place.
 
 \paragraph{Pathnames}
 Files may be accessed using either \emph{absolute} pathnames, starting from the 
 \emph{root} of the tree\footnote{Usually the Drive in which the file is 
-located, such as C:/ or D:/} or \emph{relative} pathnames, starting from 
+located, such as \code{C:\textbackslash} or \code{D:\textbackslash}.} or \emph{relative} pathnames, starting from 
 the current directory.
 
 Directories are stored the same as any other file in the system, except there 
@@ -4111,7 +4116,7 @@ In this lecture, we have seen that:
 	\item Operations on files are exposed through device-independent APIs.
 \end{itemize}
 
-\chapter{File System: Implementation - Lecture 22}
+\chapter{File System: Implementation --- Lecture 22}
 In this final lecture, we will concern us about how the Operating System 
 actually lays data down on Disk
 
@@ -4218,7 +4223,7 @@ wasting a minimal amount of disk space, common data structures that come to our 
 
 \begin{itemize}
 	\item A Linear List: Most of the methods can be impemented in O(n)\footnote{Which in this case 
-	is pretty inefficient}, 
+	is pretty inefficient.}, 
 	\item Hashtable: Usually implemented in addition to a linear structure to speed up searches. 
 \end{itemize}
 
@@ -4274,13 +4279,13 @@ when it creates a file, allocating the block on-demand as it's size increases.
 \subsubsection{Option IV, Multi-Level Indexed Files}
 Each file descriptor contains a number of block pointers of an arbitrary size $n$, the 
 first $n-2$ hold pointers to data blocks, while pointers $n-1$ and $n$ point to another block 
-of a much bigger size\footnote{E.g: the first one holds 12 pointers, the second "layer" has 10 blocks with 1024 pointers each.}
+of a much bigger size\footnote{E.g: the first one holds 12 pointers, the second `layer' has 10 blocks with 1024 pointers each.}
 
 By Increasing exponentially after the first layer, a Multi-Level Indexed File increases it's 
 size tremendously with very little overhead, given an FD with depth $layer$ where each layer as $n_p$ pointers:
 
 \[
-	Size = (n_{p})^{layer}	
+	Size = {(n_{p})}^{layer}	
 \]
 
 \begin{itemize}
